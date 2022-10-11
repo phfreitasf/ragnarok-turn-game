@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: VT323, system-ui, sans-serif;
+    font-size: 32px;
+  }
+}
+
+.gradient-button {
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(207,206,206,1) 13%, rgba(239,239,239,1) 41%);
+}
+
+.gradient-button:hover {
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(164,188,235,1) 13%, rgba(239,239,239,1) 97%);
+}
