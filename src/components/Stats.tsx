@@ -13,6 +13,7 @@ interface StatsProps {
 export function Stats({ setMode, swordman, setSwordman }: StatsProps) {
 
     function addStatus(status: string) {
+        //verifica se tem pontos e altera status de acordo com o atributo
         if (swordman.Atributos.POINTS > 0) {
             swordman.Atributos.POINTS -= 1;
             if (status == 'STR') swordman.Status.Attack += 3
@@ -25,17 +26,16 @@ export function Stats({ setMode, swordman, setSwordman }: StatsProps) {
             }
 
             if (status == 'INT') {
-                swordman.Status.SP += Math.floor((swordman.Atributos.INT * 1.2))
-                swordman.Status.CURRENTSP += Math.floor((swordman.Atributos.INT * 1.2))
+                swordman.Status.SP += Math.floor((swordman.Atributos.INT * 1.1))
+                swordman.Status.CURRENTSP += Math.floor((swordman.Atributos.INT * 1.1))
             }
 
-            if (status == 'DEX') swordman.Status.Acc = swordman.Status.Acc + (swordman.Atributos.DEX * 1)
+            if (status == 'DEX') swordman.Status.Acc += 1
 
-            if (status == 'LUK') swordman.Status.Critical = Math.floor(swordman.Status.Acc + (swordman.Atributos.LUK * 0.3))
+            if (status == 'LUK') swordman.Status.Critical = Math.floor(swordman.Atributos.LUK * 0.4)
 
             Object.entries(swordman.Atributos).map((value: any) => {
                 if (value[0] == status) {
-                    console.log(value[0])
                     value[1] += 1
                     setSwordman({
                         ...swordman,
@@ -66,12 +66,12 @@ export function Stats({ setMode, swordman, setSwordman }: StatsProps) {
 
                 {/* Lista de atributos */}
                 <ul className="list-none w-full select-none">
-                    <li className="flex items-center gap-1"><span className="w-[100px]">STR: {swordman.Atributos.STR} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('STR')} size={24} color="#39b329" weight="fill" /> </li>
-                    <li className="flex items-center gap-1"><span className="w-[100px]">AGI: {swordman.Atributos.AGI} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('AGI')} size={24} color="#39b329" weight="fill" /> </li>
-                    <li className="flex items-center gap-1"><span className="w-[100px]">VIT: {swordman.Atributos.VIT} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('VIT')} size={24} color="#39b329" weight="fill" /> </li>
-                    <li className="flex items-center gap-1"><span className="w-[100px]">INT: {swordman.Atributos.INT} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('INT')} size={24} color="#39b329" weight="fill" /> </li>
-                    <li className="flex items-center gap-1"><span className="w-[100px]">DEX: {swordman.Atributos.DEX} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('DEX')} size={24} color="#39b329" weight="fill" /> </li>
-                    <li className="flex items-center gap-1"><span className="w-[100px]">LUK: {swordman.Atributos.LUK} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus('LUK')} size={24} color="#39b329" weight="fill" /> </li>
+                    {Object.entries(swordman.Atributos).map((val, index) => {
+                        if (index != 6)
+                            return (
+                                <li key={val[0]} className="flex items-center gap-1"><span className="w-[100px]">{val[0]}: {val[1]} </span><FirstAid className="cursor-ragnarok-pointer" onClick={() => addStatus(val[0])} size={24} color="#39b329" weight="fill" /></li>
+                            )
+                    })}
                     <li className="flex items-center gap-0">PONTOS RESTANTES: {swordman.Atributos.POINTS}</li>
                 </ul>
 

@@ -68,9 +68,9 @@ function App() {
 
       {mode == 'stats' && <Stats setMode={() => setMode('battle')} swordman={swordman} setSwordman={setSwordman} />}
 
-      {mode == 'battle' && <Battle setMode={() => setMode('menu')} />}
+      {mode == 'battle' && <Battle setMode={() => setMode('menu')} swordman={swordman} setSwordman={setSwordman}/>}
 
-      {mode == 'option' && <Battle setMode={() => setMode('battle')} />}
+      {mode == 'option' && <Battle setMode={() => setMode('battle')} swordman={swordman} setSwordman={setSwordman}/>}
     </div>
   )
 }

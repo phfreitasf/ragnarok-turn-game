@@ -1,18 +1,29 @@
 import { useState } from 'react'
 import swStanding from '../../assets/character/swordmanStand.webp'
 import swAttacking from '../../assets/character/sw-attack.gif'
-import poringRosa from '../../assets/monster/poring-rosa.gif'
+
 import { style } from './styles'
+import { Bar } from '../Bar'
+import { Swordman } from '../../App'
+
+import { Enemy } from './Enemy'
 
 interface BattleProps {
-    setMode: any
+    //tipar corretamente depois
+    setMode: any,
+    swordman: Swordman,
+    setSwordman: any
 }
 
-export function Battle({ setMode }: BattleProps) {
+
+export function Battle({ setMode, swordman }: BattleProps) {
 
     const [currentAction, setCurrentAction] = useState(swStanding)
-    const [currentMonter, setCurrentMonster] = useState(poringRosa)
+
     const [action, setAction] = useState(false)
+
+
+    
 
     function Attack() {
         setAction(true)
@@ -22,10 +33,13 @@ export function Battle({ setMode }: BattleProps) {
         }, 1000);
     }
 
+
     return (
         <section className="grid grid-cols-3 h-full">
             {/* espadachim */}
-            <div className='flex flex-col self-end mb-10'>
+            <div className='flex flex-col self-end mb-10 items-center gap-0.5'>
+                <Bar color='bg-red-500' current={swordman.Status.CURRENTHP} max={swordman.Status.HP} />
+                <Bar color='bg-blue-500' current={swordman.Status.CURRENTSP} max={swordman.Status.SP} />
                 <img src={currentAction} className="h-32 w-32" style={style.flip} />
                 <section className='grid grid-cols-2 gap-2'>
                     <span className='gradient-button rounded-lg text-center' onClick={Attack}>Atacar</span>
@@ -33,16 +47,14 @@ export function Battle({ setMode }: BattleProps) {
                     <span className='gradient-button rounded-lg text-center'>Curar</span>
                 </section>
             </div>
-            <div></div>
+            {/* todo: adicionar contador do numero de batalha */}
+            <div className='text-center text-2xl mt-6'>
+                Batalha 1
+            </div>
 
 
             {/* inimigo */}
-            <div className='flex flex-col self-center mt-10'>
-                <img src={currentMonter} className="h-10 w-10 self-center"/>
-                <section className='grid grid-cols-1 gap-2'>
-                    
-                </section>
-            </div>
+            <Enemy/>
         </section>
 
     )
